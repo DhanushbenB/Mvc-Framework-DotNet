@@ -1,0 +1,92 @@
+﻿@model IEnumerable<emp_details.Models.Employee>
+
+@{
+	ViewData["Title"] = "Index";
+}
+<script src="https://code.jquery.com/jquery-3.7.1.js"
+		integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+		crossorigin="anonymous"></script>
+
+<script src="~/js/salary_detail.js"></script>
+
+<style>
+	
+	#loadingpage {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		position: fixed;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(255, 255, 255, 0.8); 
+	}
+
+</style>
+<center>
+	<div class="spinner-grow" role="status" id="loadingpage">
+
+
+		<h5> ..Loading</h5>
+	</div>
+</center>
+
+
+<div id="main-content" style="display: none;">
+
+	<p>
+		<a asp-action="Create" class="btn btn-link" title="create new data">➕  </a>
+	</p>
+	<table class="table" id="table2">
+		<thead>
+			<tr>
+				<th>
+					Action
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.EmpName)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.EmpSalary)
+				</th>
+				<th>
+					@Html.DisplayNameFor(model => model.Date_of_joining)
+				</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			@foreach (var item in Model)
+			{
+				<tr>
+
+					<td>
+						<a asp-action="Edit" asp-route-id="@item.Empid" title="Edit">🛠️</a> |
+						<a asp-action="Details" asp-route-id="@item.Empid" title="Details">📤</a> |
+						<a asp-action="Delete" asp-route-id="@item.Empid" title="Delete">✘  </a>
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.EmpName)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.EmpSalary)
+					</td>
+					<td>
+						@Html.DisplayFor(modelItem => item.Date_of_joining)
+					</td>
+
+				</tr>
+			}
+		</tbody>
+	</table>
+</div>
+
+<script>
+	$(document).ready(function () {
+		setTimeout(function () {
+			$('#loadingpage').hide();
+			$('#main-content').show();
+		}, 2000);
+	});
+</script>
